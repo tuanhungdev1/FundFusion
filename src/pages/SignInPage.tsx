@@ -1,11 +1,11 @@
 import { LayoutAuthentication } from "../layout";
 
-const SignUpPage = () => {
+const SignInPage = () => {
   return (
-    <LayoutAuthentication heading="SignUp">
+    <LayoutAuthentication heading="SignIn">
       <div>Hello</div>
     </LayoutAuthentication>
   );
 };
 
-export default SignUpPage;
+export default SignInPage;
