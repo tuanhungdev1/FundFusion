@@ -4,7 +4,11 @@
 
 @layer base {
   body {
-    @apply font-body text-base;
+    @apply text-base font-body;
     line-height: 1.5;
+  }
+
+  input {
+    @apply outline-none;
   }
 }
