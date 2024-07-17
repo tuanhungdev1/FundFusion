@@ -6,6 +6,8 @@ import { Input } from "../components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FormGroup } from "../components/common";
 import { Button } from "../components/button";
+import { CheckBox } from "../components/checkbox";
+import { useState } from "react";
 
 interface SignUpForm {
   FullName: string;
@@ -17,6 +19,12 @@ const SignUpPage = () => {
   const { control, handleSubmit } = useForm<SignUpForm>({});
 
   const onSubmit: SubmitHandler<SignUpForm> = (data) => console.log(data);
+
+  const [acceptTerm, setAcceptTerm] = useState(false);
+
+  const handleToggleTerm = () => {
+    setAcceptTerm(!acceptTerm);
+  };
 
   return (
     <LayoutAuthentication heading="SignUp">
@@ -62,14 +70,17 @@ const SignUpPage = () => {
           />
         </FormGroup>
         <div className="flex items-start mb-3 gap-x-5">
-          <span className="inline-block w-5 h-5 border rounded border-text4"></span>
-          <p className="flex-1 text-sm text-text2">
-            {" "}
-            I agree to the{" "}
-            <span className="underline text-secondary">Terms of Use</span>
-            have read and understand the{" "}
-            <span className="underline text-secondary">Privacy policy.</span>
-          </p>
+          <CheckBox checked={acceptTerm} onCLick={handleToggleTerm} name="Term">
+            <p className="flex-1 text-sm text-text2">
+              {" "}
+              I agree to the{" "}
+              <span className="underline text-secondary">
+                Terms of Use
+              </span>{" "}
+              have read and understand the{" "}
+              <span className="underline text-secondary">Privacy policy.</span>
+            </p>
+          </CheckBox>
         </div>
 
         <Button type="submit" className="w-full bg-primary">
