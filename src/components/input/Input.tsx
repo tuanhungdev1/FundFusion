@@ -1,11 +1,11 @@
-import { Control, useController } from "react-hook-form";
+import { useController } from "react-hook-form";
 
 interface Props {
   type?: string;
-  placeholder?: string;
-  control: Control;
+  control: any;
   name: string;
   defaultValue?: string;
+  placeholder?: string;
   className?: string;
 }
 
@@ -14,7 +14,7 @@ const Input = ({
   placeholder = "",
   control,
   name,
-  defaultValue = "",
+  defaultValue,
   className = "",
 }: Props) => {
   const { field } = useController({
@@ -26,6 +26,7 @@ const Input = ({
   return (
     <div className="relative">
       <input
+        id={name}
         placeholder={placeholder}
         type={type}
         {...field}
