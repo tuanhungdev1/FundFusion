@@ -1,47 +1,15 @@
 import { Link } from "react-router-dom";
 import { LayoutAuthentication } from "../layout";
-import LogoGoogle from "../../public/icon/Google.png";
 import { Label } from "../components/label";
 import { Input } from "../components/input";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FormGroup } from "../components/common";
-import { Button } from "../components/button";
+import { Button, ButtonGoogle } from "../components/button";
 import { CheckBox } from "../components/checkbox";
-import { useState } from "react";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { IconEyeToggle } from "../components/icon";
-
-const schema = yup
-  .object()
-  .shape({
-    FullName: yup
-      .string()
-      .required("Full name is required")
-      .min(2, "Full name must be at least 2 characters")
-      .max(50, "Full name must be less than 50 characters"),
-    Email: yup
-      .string()
-      .required("Email is required")
-      .email("Invalid email format"),
-    Password: yup
-      .string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters")
-      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .matches(/[0-9]/, "Password must contain at least one number")
-      .matches(
-        /[!@#$%^&*]/,
-        "Password must contain at least one special character"
-      ),
-    Term: yup
-      .boolean()
-      .required()
-      .oneOf([true], "You must accept the terms and conditions"),
-  })
-  .required();
+import { useToogleValue } from "../hooks";
+import { signUpFormSchema } from "../utils/validate";
 
 interface SignUpForm {
   FullName: string;
@@ -56,22 +24,17 @@ const SignUpPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignUpForm>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(signUpFormSchema),
   });
 
   const onSubmit: SubmitHandler<SignUpForm> = (data) => console.log(data);
 
-  const [acceptTerm, setAcceptTerm] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleTogglePasswordClick = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleToggleTerm = () => {
-    setAcceptTerm(!acceptTerm);
-  };
+  const { value: acceptTerm, handleToogleValueClick: handleToogleTermClick } =
+    useToogleValue(false);
+  const {
+    value: showPassword,
+    handleToogleValueClick: handleToogleShowPasswordClick,
+  } = useToogleValue(false);
 
   return (
     <LayoutAuthentication heading="SignUp">
@@ -81,10 +44,8 @@ const SignUpPage = () => {
           Sign in
         </Link>
       </p>
-      <button className="flex items-center justify-center w-full py-3 mb-5 text-base font-semibold border gap-x-3 border-strock rounded-xl text-text2">
-        <img src={LogoGoogle} alt="Logo Google" />
-        <span>Sign up with google</span>
-      </button>
+
+      <ButtonGoogle />
       <p className="mb-4 text-xs font-normal text-center lg:text-sm lg:mb-8 text-text2">
         Or sign up with email
       </p>
@@ -120,12 +81,16 @@ const SignUpPage = () => {
           >
             <IconEyeToggle
               open={showPassword}
-              onClick={handleTogglePasswordClick}
+              onClick={handleToogleShowPasswordClick}
             />
           </Input>
         </FormGroup>
         <div className="flex items-start mb-3 gap-x-5">
-          <CheckBox checked={acceptTerm} onCLick={handleToggleTerm} name="Term">
+          <CheckBox
+            checked={acceptTerm}
+            onCLick={handleToogleTermClick}
+            name="Term"
+          >
             <p className="flex-1 text-sm text-text2">
               {" "}
               I agree to the{" "}
