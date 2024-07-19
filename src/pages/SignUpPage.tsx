@@ -11,6 +11,7 @@ import { useState } from "react";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { IconEyeToggle } from "../components/icon";
 
 const schema = yup
   .object()
@@ -62,6 +63,12 @@ const SignUpPage = () => {
 
   const [acceptTerm, setAcceptTerm] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePasswordClick = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleToggleTerm = () => {
     setAcceptTerm(!acceptTerm);
   };
@@ -105,12 +112,17 @@ const SignUpPage = () => {
         <FormGroup>
           <Label htmlFor="Password">Password *</Label>
           <Input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Create a password "
             control={control}
             name="Password"
             error={errors.Password?.message}
-          />
+          >
+            <IconEyeToggle
+              open={showPassword}
+              onClick={handleTogglePasswordClick}
+            />
+          </Input>
         </FormGroup>
         <div className="flex items-start mb-3 gap-x-5">
           <CheckBox checked={acceptTerm} onCLick={handleToggleTerm} name="Term">

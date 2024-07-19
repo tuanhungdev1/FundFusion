@@ -8,6 +8,7 @@ interface Props {
   placeholder?: string;
   className?: string;
   error?: string;
+  children?: React.ReactNode;
 }
 
 const Input = ({
@@ -18,6 +19,7 @@ const Input = ({
   defaultValue,
   className = "",
   error = "",
+  children,
 }: Props) => {
   const { field } = useController({
     control,
@@ -34,7 +36,9 @@ const Input = ({
         {...field}
         className={`w-full px-6 py-4 text-sm font-medium border ${
           error.length > 0 ? "border-error" : "border-strock"
-        } rounded-xl text-text1 placeholder:text-text4 ${className}`}
+        } rounded-xl text-text1 placeholder:text-text4 ${className} ${
+          children ? "pr-16" : ""
+        }`}
       />
 
       {error.length > 0 && (
@@ -42,6 +46,10 @@ const Input = ({
           {error}
         </span>
       )}
+
+      <span className="absolute -translate-y-1/2 select-none right-6 top-1/2">
+        {children}
+      </span>
     </div>
   );
 };

@@ -12,9 +12,9 @@ const CheckBox = ({
   name,
 }: Props) => {
   return (
-    <div className="flex items-start justify-start gap-x-4">
+    <div className="flex items-start justify-start gap-x-4 ">
       <div
-        className={`inline-flex items-center justify-center p-1 text-white w-5 h-5 border rounded cursor-pointer ${
+        className={`inline-flex select-none items-center justify-center p-1 text-white w-5 h-5 border rounded cursor-pointer ${
           checked ? "bg-primary border-primary" : "border-strock"
         }`}
         onClick={onCLick}
