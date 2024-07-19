@@ -1,4 +1,6 @@
+import { withErrorBoundary } from "react-error-boundary";
 import LogoGoogle from "/public/icon/Google.png";
+import { ErrorComponents } from "../common";
 
 interface Props {
   text?: string;
@@ -20,4 +22,6 @@ const ButtonGoogle: React.FC<Props> = ({
   );
 };
 
-export default ButtonGoogle;
+export default withErrorBoundary(ButtonGoogle, {
+  FallbackComponent: ErrorComponents,
+});

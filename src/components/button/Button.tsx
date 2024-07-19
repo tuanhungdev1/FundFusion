@@ -1,3 +1,5 @@
+import { withErrorBoundary } from "react-error-boundary";
+import { ErrorComponents } from "../common";
 interface Props {
   children: React.ReactNode;
   type: "submit" | "reset" | "button";
@@ -33,4 +35,6 @@ const Button = ({
   );
 };
 
-export default Button;
+export default withErrorBoundary(Button, {
+  FallbackComponent: ErrorComponents,
+});

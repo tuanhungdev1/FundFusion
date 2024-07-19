@@ -1,3 +1,6 @@
+import { withErrorBoundary } from "react-error-boundary";
+import { ErrorComponents } from "../common";
+
 interface Props {
   children: React.ReactNode;
   htmlFor?: string;
@@ -15,4 +18,6 @@ const Label = ({ children, htmlFor = "", className = "" }: Props) => {
   );
 };
 
-export default Label;
+export default withErrorBoundary(Label, {
+  FallbackComponent: ErrorComponents,
+});

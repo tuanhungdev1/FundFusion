@@ -1,4 +1,6 @@
+import { withErrorBoundary } from "react-error-boundary";
 import { useController } from "react-hook-form";
+import { ErrorComponents } from "../common";
 
 interface Props {
   type?: string;
@@ -54,4 +56,6 @@ const Input = ({
   );
 };
 
-export default Input;
+export default withErrorBoundary(Input, {
+  FallbackComponent: ErrorComponents,
+});

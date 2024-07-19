@@ -1,3 +1,6 @@
+import { withErrorBoundary } from "react-error-boundary";
+import { ErrorComponents } from "../common";
+
 interface Props {
   children: React.ReactNode;
   checked: boolean;
@@ -52,4 +55,6 @@ const CheckBox = ({
   );
 };
 
-export default CheckBox;
+export default withErrorBoundary(CheckBox, {
+  FallbackComponent: ErrorComponents,
+});
