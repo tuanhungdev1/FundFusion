@@ -68,7 +68,7 @@ const SignInPage = () => {
           </Input>
         </FormGroup>
 
-        <Link to={"#"} className="font-medium text-right text-primary">
+        <Link to={"#"} className="text-sm font-medium text-right text-primary">
           Forgot password
         </Link>
         <Button type="submit" className="w-full bg-primary">
